@@ -3,7 +3,7 @@
 /**
  *  SFW2 - SimpleFrameWork
  *
- *  Copyright (C) 2017  Stefan Paproth
+ *  Copyright (C) 2020  Stefan Paproth
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as
@@ -22,7 +22,7 @@
 
 namespace SFW2\Session;
 
-class Session {
+class Session extends SessionAbstract {
     #http://de3.php.net/manual/en/session.security.php#87608
     #http://www.php.net/manual/de/function.setcookie.php#94398
 
@@ -41,82 +41,15 @@ class Session {
         session_write_close();
     }
 
-    public function regenerateSession() : void {
+    public function regenerateSession(): void {
         session_regenerate_id();
     }
 
-    public function setPath(string $path) {
-        if(!empty($path)) {
-            $this->path = 'p' . $path;
-        }
-    }
-
-    public function destroySession() : void {
+    public function destroySession(): void {
         $domain = filter_var($this->serverName, FILTER_SANITIZE_URL);
         setcookie(session_name(), '', time() - 42000, '/', $domain, true, true);
         session_destroy();
         $_SESSION = [];
-    }
-
-    public function isPathEntrySet(string $index) {
-        return $this->isEntrySet($this->path, $index);
-    }
-
-    public function getPathEntry(string $index, $default = null) {
-        return $this->getEntry($this->path, $index, $default);
-    }
-
-    public function setPathEntry(string $index, $val) {
-        $this->setEntry($this->path, $index, $val);
-    }
-
-    public function delPathEntry(string $index) {
-        return $this->delEntry($this->path, $index);
-    }
-
-    public function delAllPathEntries() {
-        return $this->delAllEntries($this->path);
-    }
-
-    public function isGlobalEntrySet(string $index) {
-        return $this->isEntrySet(self::GLOBAL_SECTION, $index);
-    }
-
-    public function getGlobalEntry(string $index, $default = null) {
-        return $this->getEntry(self::GLOBAL_SECTION, $index, $default);
-    }
-
-    public function setGlobalEntry(string $index, $val) {
-        $this->setEntry(self::GLOBAL_SECTION, $index, $val);
-    }
-
-    public function delGlobalEntry(string $index) {
-        return $this->delEntry(self::GLOBAL_SECTION, $index);
-    }
-
-    public function delAllGlobalEntries() {
-        return $this->delAllEntries(self::GLOBAL_SECTION);
-    }
-
-    public function generateToken() : string {
-        $token = md5(random_int(PHP_INT_MIN, PHP_INT_MAX) . uniqid("", true));
-        $this->setGlobalEntry(self::XSS_TOKEN, $token);
-        return $token;
-    }
-
-    public function compareToken(string $rtoken) : bool {
-        $token = $this->getGlobalEntry(self::XSS_TOKEN);
-        if($token == null) {
-            return false;
-        }
-        $this->delGlobalEntry(self::XSS_TOKEN);
-        return ($rtoken == $token);
-    }
-
-    public function getToken() : string {
-        $token = $this->getGlobalEntry(self::XSS_TOKEN);
-        $this->delGlobalEntry(self::XSS_TOKEN);
-        return $token;
     }
 
     protected function startSession() {
@@ -131,7 +64,7 @@ class Session {
         session_start();
     }
 
-    protected function isEntrySet(string $section, string $index) : bool {
+    protected function isEntrySet(string $section, string $index): bool {
         if(isset($_SESSION[$section][$index])) {
             return true;
         }
@@ -149,7 +82,7 @@ class Session {
         $_SESSION[$section][$index] = serialize($val);
     }
 
-    protected function delEntry(string $section, string $index) : bool {
+    protected function delEntry(string $section, string $index): bool {
         if(!$this->isEntrySet($section, $index)) {
             return false;
         }
@@ -157,7 +90,7 @@ class Session {
         return true;
     }
 
-    protected function delAllEntries(string $section) : bool {
+    protected function delAllEntries(string $section): bool {
         if(!isset($_SESSION[$section])) {
             return false;
         }
