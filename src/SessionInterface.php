@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  *  SFW2 - SimpleFrameWork
@@ -23,8 +23,7 @@
 namespace SFW2\Session;
 
 interface SessionInterface {
-    const GLOBAL_SECTION         = 'global';
-    const XSS_TOKEN              = 'xss_token';
+    const GLOBAL_SECTION = 'global';
 
     public function regenerateSession(): void;
 
@@ -32,24 +31,24 @@ interface SessionInterface {
 
     public function destroySession(): void;
 
-    public function isPathEntrySet(string $index);
+    public function isPathEntrySet(string $index): bool;
 
     public function getPathEntry(string $index, $default = null);
 
     public function setPathEntry(string $index, $val);
 
-    public function delPathEntry(string $index);
+    public function delPathEntry(string $index): bool;
 
-    public function delAllPathEntries();
+    public function delAllPathEntries(): bool;
 
-    public function isGlobalEntrySet(string $index);
+    public function isGlobalEntrySet(string $index): bool;
 
     public function getGlobalEntry(string $index, $default = null);
 
     public function setGlobalEntry(string $index, $val);
 
-    public function delGlobalEntry(string $index);
+    public function delGlobalEntry(string $index): bool;
 
-    public function delAllGlobalEntries();
+    public function delAllGlobalEntries(): bool;
 
 }

@@ -50,15 +50,15 @@ abstract class SessionAbstract implements SessionInterface {
         $this->setEntry($this->path, $index, $val);
     }
 
-    public function delPathEntry(string $index) {
+    public function delPathEntry(string $index): bool {
         return $this->delEntry($this->path, $index);
     }
 
-    public function delAllPathEntries() {
+    public function delAllPathEntries(): bool {
         return $this->delAllEntries($this->path);
     }
 
-    public function isGlobalEntrySet(string $index) {
+    public function isGlobalEntrySet(string $index): bool {
         return $this->isEntrySet(self::GLOBAL_SECTION, $index);
     }
 
@@ -70,11 +70,11 @@ abstract class SessionAbstract implements SessionInterface {
         $this->setEntry(self::GLOBAL_SECTION, $index, $val);
     }
 
-    public function delGlobalEntry(string $index) {
+    public function delGlobalEntry(string $index): bool {
         return $this->delEntry(self::GLOBAL_SECTION, $index);
     }
 
-    public function delAllGlobalEntries() {
+    public function delAllGlobalEntries(): bool {
         return $this->delAllEntries(self::GLOBAL_SECTION);
     }
 

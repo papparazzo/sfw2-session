@@ -22,7 +22,12 @@
 
 namespace SFW2\Session;
 
+/**
+ * @noinspection PhpUnused
+ */
 class XSRFToken {
+
+    private const XSS_TOKEN = 'xss_token';
 
     protected SessionInterface $session;
 
@@ -30,23 +35,26 @@ class XSRFToken {
         $this->session = $session;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function generateToken(): string {
         $token = md5(random_int(PHP_INT_MIN, PHP_INT_MAX) . uniqid("", true));
-        $this->session->setGlobalEntry(SessionInterface::XSS_TOKEN, $token);
+        $this->session->setGlobalEntry(self::XSS_TOKEN, $token);
         return $token;
     }
 
     public function compareToken(string $rtoken): bool {
-        $token = $this->session->getGlobalEntry(SessionInterface::XSS_TOKEN);
+        $token = $this->session->getGlobalEntry(self::XSS_TOKEN);
         if($token == null) {
             return false;
         }
-        $this->session->delGlobalEntry(SessionInterface::XSS_TOKEN);
+        $this->session->delGlobalEntry(self::XSS_TOKEN);
         return ($rtoken == $token);
     }
 
     public function getToken(): string {
-        $token = $this->session->getGlobalEntry(SessionInterface::XSS_TOKEN);
+        $token = $this->session->getGlobalEntry(self::XSS_TOKEN);
         $this->session->delGlobalEntry(self::XSS_TOKEN);
         return $token;
     }

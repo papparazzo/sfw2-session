@@ -22,20 +22,15 @@
 
 namespace SFW2\Session;
 
+/**
+ * @noinspection PhpUnused
+ */
 class Session extends SessionAbstract {
     #http://de3.php.net/manual/en/session.security.php#87608
     #http://www.php.net/manual/de/function.setcookie.php#94398
 
-    const GLOBAL_SECTION         = 'global';
-    const XSS_TOKEN              = 'xss_token';
-
     protected string $path       = self::GLOBAL_SECTION;
     protected string $serverName = '';
-
-    public function __construct(string $serverName) {
-        $this->serverName = $serverName;
-        $this->startSession();
-    }
 
     public function __destruct() {
         session_write_close();
@@ -96,8 +91,5 @@ class Session extends SessionAbstract {
         }
         unset($_SESSION[$section]);
         return true;
-    }
-
-    private function __clone() {
     }
 }
