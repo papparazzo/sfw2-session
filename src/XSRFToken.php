@@ -22,6 +22,8 @@
 
 namespace SFW2\Session;
 
+use Exception;
+
 /**
  * @noinspection PhpUnused
  */
@@ -36,7 +38,7 @@ class XSRFToken {
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function generateToken(): string {
         $token = md5(random_int(PHP_INT_MIN, PHP_INT_MAX) . uniqid("", true));
