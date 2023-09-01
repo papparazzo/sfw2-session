@@ -46,7 +46,7 @@ abstract class SessionAbstract implements SessionInterface {
         return $this->getEntry($this->path, $index, $default);
     }
 
-    public function setPathEntry(string $index, $val) {
+    public function setPathEntry(string $index, $val): void {
         $this->setEntry($this->path, $index, $val);
     }
 
@@ -66,7 +66,7 @@ abstract class SessionAbstract implements SessionInterface {
         return $this->getEntry(self::GLOBAL_SECTION, $index, $default);
     }
 
-    public function setGlobalEntry(string $index, $val) {
+    public function setGlobalEntry(string $index, $val): void {
         $this->setEntry(self::GLOBAL_SECTION, $index, $val);
     }
 

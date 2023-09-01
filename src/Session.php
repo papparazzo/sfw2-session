@@ -47,7 +47,7 @@ class Session extends SessionAbstract {
         $_SESSION = [];
     }
 
-    protected function startSession() {
+    protected function startSession(): void {
         $domain = filter_var($this->serverName, FILTER_SANITIZE_URL);
         ini_set("session.use_only_cookies", "1");
         ini_set("session.cookie_lifetime", "1800");
@@ -73,7 +73,7 @@ class Session extends SessionAbstract {
         return unserialize($_SESSION[$section][$index]);
     }
 
-    protected function setEntry(string $section, string $index, $val) {
+    protected function setEntry(string $section, string $index, $val): void {
         $_SESSION[$section][$index] = serialize($val);
     }
 
