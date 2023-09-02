@@ -29,7 +29,7 @@ use Exception;
  */
 class XSRFToken {
 
-    private const XSS_TOKEN = 'xss_token';
+    public const XSS_TOKEN = 'xss_token';
 
     protected SessionInterface $session;
 
