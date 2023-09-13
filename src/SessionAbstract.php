@@ -42,7 +42,7 @@ abstract class SessionAbstract implements SessionInterface {
         return $this->hasEntry($this->path, $index);
     }
 
-    public function getPathEntry(string $index, $default = null) {
+    public function getPathEntry(string $index, $default = null): mixed {
         return $this->getEntry($this->path, $index, $default);
     }
 
@@ -62,7 +62,7 @@ abstract class SessionAbstract implements SessionInterface {
         return $this->hasEntry(self::GLOBAL_SECTION, $index);
     }
 
-    public function getGlobalEntry(string $index, $default = null) {
+    public function getGlobalEntry(string $index, $default = null): mixed {
         return $this->getEntry(self::GLOBAL_SECTION, $index, $default);
     }
 
@@ -82,7 +82,7 @@ abstract class SessionAbstract implements SessionInterface {
 
     abstract protected function hasEntry(string $section, string $index): bool;
 
-    abstract protected function getEntry(string $section, string $index, $default = null);
+    abstract protected function getEntry(string $section, string $index, $default = null): mixed;
 
     abstract protected function setEntry(string $section, string $index, $val);
 

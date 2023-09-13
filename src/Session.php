@@ -68,6 +68,7 @@ class Session extends SessionAbstract {
         return false;
     }
 
+    protected function getEntry(string $section, string $index, $default = null): mixed {
         if(!$this->hasEntry($section, $index)) {
             return $default;
         }

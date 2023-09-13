@@ -33,7 +33,7 @@ interface SessionInterface {
 
     public function hasPathEntry(string $index): bool;
 
-    public function getPathEntry(string $index, $default = null);
+    public function getPathEntry(string $index, $default = null): mixed;
 
     public function setPathEntry(string $index, $val);
 
@@ -43,7 +43,7 @@ interface SessionInterface {
 
     public function hasGlobalEntry(string $index): bool;
 
-    public function getGlobalEntry(string $index, $default = null);
+    public function getGlobalEntry(string $index, $default = null): mixed;
 
     public function setGlobalEntry(string $index, $val);
 
