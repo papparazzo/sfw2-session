@@ -31,7 +31,7 @@ interface SessionInterface {
 
     public function destroySession(): void;
 
-    public function isPathEntrySet(string $index): bool;
+    public function hasPathEntry(string $index): bool;
 
     public function getPathEntry(string $index, $default = null);
 
@@ -41,7 +41,7 @@ interface SessionInterface {
 
     public function delAllPathEntries(): bool;
 
-    public function isGlobalEntrySet(string $index): bool;
+    public function hasGlobalEntry(string $index): bool;
 
     public function getGlobalEntry(string $index, $default = null);
 

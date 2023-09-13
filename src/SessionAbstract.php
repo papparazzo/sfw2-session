@@ -38,8 +38,8 @@ abstract class SessionAbstract implements SessionInterface {
         }
     }
 
-    public function isPathEntrySet(string $index): bool {
-        return $this->isEntrySet($this->path, $index);
+    public function hasPathEntry(string $index): bool {
+        return $this->hasEntry($this->path, $index);
     }
 
     public function getPathEntry(string $index, $default = null) {
@@ -58,8 +58,8 @@ abstract class SessionAbstract implements SessionInterface {
         return $this->delAllEntries($this->path);
     }
 
-    public function isGlobalEntrySet(string $index): bool {
-        return $this->isEntrySet(self::GLOBAL_SECTION, $index);
+    public function hasGlobalEntry(string $index): bool {
+        return $this->hasEntry(self::GLOBAL_SECTION, $index);
     }
 
     public function getGlobalEntry(string $index, $default = null) {
@@ -80,7 +80,7 @@ abstract class SessionAbstract implements SessionInterface {
 
     abstract protected function startSession();
 
-    abstract protected function isEntrySet(string $section, string $index): bool;
+    abstract protected function hasEntry(string $section, string $index): bool;
 
     abstract protected function getEntry(string $section, string $index, $default = null);
 

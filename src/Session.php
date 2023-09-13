@@ -61,15 +61,14 @@ class Session extends SessionAbstract {
         session_start();
     }
 
-    protected function isEntrySet(string $section, string $index): bool {
+    protected function hasEntry(string $section, string $index): bool {
         if(isset($_SESSION[$section][$index])) {
             return true;
         }
         return false;
     }
 
-    protected function getEntry(string $section, string $index, $default = null) {
-        if(!$this->isEntrySet($section, $index)) {
+        if(!$this->hasEntry($section, $index)) {
             return $default;
         }
         return unserialize($_SESSION[$section][$index]);
@@ -80,7 +79,7 @@ class Session extends SessionAbstract {
     }
 
     protected function delEntry(string $section, string $index): bool {
-        if(!$this->isEntrySet($section, $index)) {
+        if(!$this->hasEntry($section, $index)) {
             return false;
         }
         unset($_SESSION[$section][$index]);
