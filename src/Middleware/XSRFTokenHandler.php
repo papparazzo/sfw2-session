@@ -29,9 +29,10 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use SFW2\Core\HttpExceptions\HttpForbidden;
 use SFW2\Session\XSRFToken;
 
-class XCSHandler implements MiddlewareInterface {
+class XSRFTokenHandler implements MiddlewareInterface {
 
     private XSRFToken $xsrfToken;
 
@@ -54,17 +55,8 @@ class XCSHandler implements MiddlewareInterface {
         $token = (string)$request->getAttribute(XSRFToken::XSS_TOKEN);
 
         if(!$this->xsrfToken->compareToken($token)) {
-
-
-            #403 (Forbidden)
-            #return $handler->handle($request)->withHeader('X-CSRF-Token', $this->xsrfToken->generateToken());
-
-#            throw new ResolverException("class <$class> does not exists", ResolverException::INVALID_DATA_GIVEN);
+            throw new HttpForbidden("invalid xsrf-token given");
         }
-
-
-
-
 
         return $handler->handle($request)->withHeader('X-CSRF-Token', $this->xsrfToken->generateToken());
     }
