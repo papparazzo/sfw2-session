@@ -38,8 +38,9 @@ class Session extends SessionAbstract {
         session_write_close();
     }
 
-    public function regenerateSession(): void {
+    public function regenerateSession(): SessionInterface {
         session_regenerate_id();
+        return $this;
     }
 
     public function destroySession(): void {
@@ -75,8 +76,9 @@ class Session extends SessionAbstract {
         return unserialize($_SESSION[$section][$index]);
     }
 
-    protected function setEntry(string $section, string $index, $val): void {
+    protected function setEntry(string $section, string $index, $val): SessionInterface {
         $_SESSION[$section][$index] = serialize($val);
+        return $this;
     }
 
     protected function delEntry(string $section, string $index): bool {

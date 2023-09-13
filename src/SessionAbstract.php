@@ -32,10 +32,11 @@ abstract class SessionAbstract implements SessionInterface {
         $this->startSession();
     }
 
-    public function setPath(string $path): void {
+    public function setPath(string $path): SessionInterface {
         if(!empty($path)) {
             $this->path = 'p' . $path;
         }
+        return $this;
     }
 
     public function hasPathEntry(string $index): bool {
@@ -46,8 +47,9 @@ abstract class SessionAbstract implements SessionInterface {
         return $this->getEntry($this->path, $index, $default);
     }
 
-    public function setPathEntry(string $index, $val): void {
+    public function setPathEntry(string $index, $val): SessionInterface {
         $this->setEntry($this->path, $index, $val);
+        return $this;
     }
 
     public function delPathEntry(string $index): bool {
@@ -66,8 +68,9 @@ abstract class SessionAbstract implements SessionInterface {
         return $this->getEntry(self::GLOBAL_SECTION, $index, $default);
     }
 
-    public function setGlobalEntry(string $index, $val): void {
+    public function setGlobalEntry(string $index, $val): SessionInterface {
         $this->setEntry(self::GLOBAL_SECTION, $index, $val);
+        return $this;
     }
 
     public function delGlobalEntry(string $index): bool {
@@ -84,7 +87,7 @@ abstract class SessionAbstract implements SessionInterface {
 
     abstract protected function getEntry(string $section, string $index, $default = null): mixed;
 
-    abstract protected function setEntry(string $section, string $index, $val);
+    abstract protected function setEntry(string $section, string $index, $val): SessionInterface;
 
     abstract protected function delEntry(string $section, string $index): bool;
 

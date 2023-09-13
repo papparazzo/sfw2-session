@@ -25,9 +25,9 @@ namespace SFW2\Session;
 interface SessionInterface {
     public const GLOBAL_SECTION = 'global';
 
-    public function regenerateSession(): void;
+    public function regenerateSession(): SessionInterface;
 
-    public function setPath(string $path): void;
+    public function setPath(string $path): SessionInterface;
 
     public function destroySession(): void;
 
@@ -35,7 +35,7 @@ interface SessionInterface {
 
     public function getPathEntry(string $index, $default = null): mixed;
 
-    public function setPathEntry(string $index, $val);
+    public function setPathEntry(string $index, $val): SessionInterface;
 
     public function delPathEntry(string $index): bool;
 
@@ -45,7 +45,7 @@ interface SessionInterface {
 
     public function getGlobalEntry(string $index, $default = null): mixed;
 
-    public function setGlobalEntry(string $index, $val);
+    public function setGlobalEntry(string $index, $val): SessionInterface;
 
     public function delGlobalEntry(string $index): bool;
 
