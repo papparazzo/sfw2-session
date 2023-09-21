@@ -32,7 +32,7 @@ abstract class SessionAbstract implements SessionInterface {
 
     public function setPath(string $path): SessionInterface {
         if(!empty($path)) {
-            $this->path = 'p' . $path;
+            $this->path = "p$path";
         }
         return $this;
     }
