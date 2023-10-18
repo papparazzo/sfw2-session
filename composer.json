@@ -2,10 +2,26 @@
     "name": "sfw2/session",
     "type": "library",
     "license": "GNU AFFERO GENERAL PUBLIC LICENSE Version 3",
-
+    "keywords": ["framework", "micro", "session"],
+    "authors": [
+        {
+            "name": "Stefan Paproth",
+            "email": "pappi-@gmx.de"
+        }
+    ],
+    "repositories" : [
+        {
+            "type": "vcs",
+            "url": "https://github.com/papparazzo/sfw2-core.git"
+        }
+    ],
     "require": {
         "php": "^8.1",
-        "psr/http-server-middleware": "~1.0.2"
+
+        "sfw2/core": "^3.0",
+
+        "psr/http-server-middleware": "~1.0.2",
+        "psr/simple-cache": "^3.0.0"
     },
     "autoload": {
         "psr-4": {
@@ -13,4 +29,3 @@
         }
     }
 }
-
