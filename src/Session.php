@@ -27,12 +27,9 @@ namespace SFW2\Session;
 /**
  * @noinspection PhpUnused
  */
-class Session extends SessionAbstract {
-    #http://de3.php.net/manual/en/session.security.php#87608
-    #http://www.php.net/manual/de/function.setcookie.php#94398
 
-    protected string $path       = self::GLOBAL_SECTION;
-    protected string $serverName = '';
+class Session extends SessionAbstract
+{
 
     public function __destruct() {
         session_write_close();
@@ -43,22 +40,16 @@ class Session extends SessionAbstract {
         return $this;
     }
 
-    public function destroySession(): void {
-        $domain = filter_var($this->serverName, FILTER_SANITIZE_URL);
-        setcookie(session_name(), '', time() - 42000, '/', $domain, true, true);
+    public function destroySession(): void
+    {
+        setcookie(session_name(), '', time() - 42000, '/');
         session_destroy();
         $_SESSION = [];
     }
 
-    protected function startSession(): void {
-        $domain = filter_var($this->serverName, FILTER_SANITIZE_URL);
-        ini_set("session.use_only_cookies", "1");
-        ini_set("session.cookie_lifetime", "1800");
-        ini_set("session.cookie_httponly", "1");
-        ini_set("session.bug_compat_42", "0");
-        ini_set("session.bug_compat_warn", "0");
-
-        session_set_cookie_params(1800, '/', $domain, false, true);
+    protected function startSession(): void
+    {
+        session_set_cookie_params(1800, '/', null, true, true);
         session_start();
     }
 

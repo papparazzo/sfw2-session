@@ -22,11 +22,12 @@
 
 namespace SFW2\Session;
 
-abstract class SessionAbstract implements SessionInterface {
+abstract class SessionAbstract implements SessionInterface
+{
+    protected string $path = self::GLOBAL_SECTION;
 
-    protected string $path       = self::GLOBAL_SECTION;
-
-    public function __construct(protected string $serverName) {
+    public function __construct()
+    {
         $this->startSession();
     }
 
