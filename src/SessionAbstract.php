@@ -31,52 +31,63 @@ abstract class SessionAbstract implements SessionInterface
         $this->startSession();
     }
 
-    public function setPath(string $path): SessionInterface {
-        if(!empty($path)) {
+    public function setPath(string $path): SessionInterface
+    {
+        if (!empty($path)) {
             $this->path = "p$path";
         }
         return $this;
     }
 
-    public function hasPathEntry(string $index): bool {
+    public function hasPathEntry(string $index): bool
+    {
         return $this->hasEntry($this->path, $index);
     }
 
-    public function getPathEntry(string $index, $default = null): mixed {
+    public function getPathEntry(string $index, $default = null): mixed
+    {
         return $this->getEntry($this->path, $index, $default);
     }
 
-    public function setPathEntry(string $index, $val): SessionInterface {
+    public function setPathEntry(string $index, $val): SessionInterface
+    {
         $this->setEntry($this->path, $index, $val);
         return $this;
     }
 
-    public function delPathEntry(string $index): bool {
+    public function delPathEntry(string $index): bool
+    {
         return $this->delEntry($this->path, $index);
     }
 
-    public function delAllPathEntries(): bool {
+    public function delAllPathEntries(): bool
+    {
         return $this->delAllEntries($this->path);
     }
 
-    public function hasGlobalEntry(string $index): bool {
+    public function hasGlobalEntry(string $index): bool
+    {
         return $this->hasEntry(self::GLOBAL_SECTION, $index);
     }
 
-    public function getGlobalEntry(string $index, $default = null): mixed {
+    public function getGlobalEntry(string $index, $default = null): mixed
+    {
         return $this->getEntry(self::GLOBAL_SECTION, $index, $default);
     }
 
-    public function setGlobalEntry(string $index, $val): SessionInterface {
+    public function setGlobalEntry(string $index, $val): SessionInterface
+    {
         $this->setEntry(self::GLOBAL_SECTION, $index, $val);
         return $this;
     }
 
-    public function delGlobalEntry(string $index): bool {
+    public function delGlobalEntry(string $index): bool
+    {
         return $this->delEntry(self::GLOBAL_SECTION, $index);
     }
 
-    public function delAllGlobalEntries(): bool {
+    public function delAllGlobalEntries(): bool
+    {
         return $this->delAllEntries(self::GLOBAL_SECTION);
     }
 
@@ -92,6 +103,7 @@ abstract class SessionAbstract implements SessionInterface
 
     abstract protected function delAllEntries(string $section): bool;
 
-    private function __clone() {
+    private function __clone()
+    {
     }
 }

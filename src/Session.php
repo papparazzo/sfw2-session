@@ -31,11 +31,13 @@ namespace SFW2\Session;
 class Session extends SessionAbstract
 {
 
-    public function __destruct() {
+    public function __destruct()
+    {
         session_write_close();
     }
 
-    public function regenerateSession(): SessionInterface {
+    public function regenerateSession(): SessionInterface
+    {
         session_regenerate_id();
         return $this;
     }
@@ -53,35 +55,40 @@ class Session extends SessionAbstract
         session_start();
     }
 
-    protected function hasEntry(string $section, string $index): bool {
-        if(isset($_SESSION[$section][$index])) {
+    protected function hasEntry(string $section, string $index): bool
+    {
+        if (isset($_SESSION[$section][$index])) {
             return true;
         }
         return false;
     }
 
-    protected function getEntry(string $section, string $index, $default = null): mixed {
-        if(!$this->hasEntry($section, $index)) {
+    protected function getEntry(string $section, string $index, $default = null): mixed
+    {
+        if (!$this->hasEntry($section, $index)) {
             return $default;
         }
         return unserialize($_SESSION[$section][$index]);
     }
 
-    protected function setEntry(string $section, string $index, $val): SessionInterface {
+    protected function setEntry(string $section, string $index, $val): SessionInterface
+    {
         $_SESSION[$section][$index] = serialize($val);
         return $this;
     }
 
-    protected function delEntry(string $section, string $index): bool {
-        if(!$this->hasEntry($section, $index)) {
+    protected function delEntry(string $section, string $index): bool
+    {
+        if (!$this->hasEntry($section, $index)) {
             return false;
         }
         unset($_SESSION[$section][$index]);
         return true;
     }
 
-    protected function delAllEntries(string $section): bool {
-        if(!isset($_SESSION[$section])) {
+    protected function delAllEntries(string $section): bool
+    {
+        if (!isset($_SESSION[$section])) {
             return false;
         }
         unset($_SESSION[$section]);

@@ -72,7 +72,7 @@ class SessionSimpleCache implements CacheInterface
     public function getMultiple(iterable $keys, mixed $default = null): iterable
     {
         $tmp = [];
-        foreach($keys as $key) {
+        foreach ($keys as $key) {
             $tmp[] = $this->get($key, $default);
         }
         return $tmp;
@@ -83,7 +83,7 @@ class SessionSimpleCache implements CacheInterface
      */
     public function setMultiple(iterable $values, DateInterval|int|null $ttl = null): bool
     {
-        foreach($values as $key => $value) {
+        foreach ($values as $key => $value) {
             $this->set($key, $value);
         }
         return true;
@@ -94,7 +94,7 @@ class SessionSimpleCache implements CacheInterface
      */
     public function deleteMultiple(iterable $keys): bool
     {
-        foreach($keys as $key) {
+        foreach ($keys as $key) {
             $this->delete($key);
         }
         return true;

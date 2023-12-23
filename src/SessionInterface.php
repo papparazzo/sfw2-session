@@ -22,7 +22,8 @@
 
 namespace SFW2\Session;
 
-interface SessionInterface {
+interface SessionInterface
+{
     public const GLOBAL_SECTION = 'global';
 
     public function regenerateSession(): SessionInterface;
