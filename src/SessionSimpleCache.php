@@ -27,7 +27,7 @@ namespace SFW2\Session;
 use DateInterval;
 use Psr\SimpleCache\CacheInterface;
 
-class SessionSimpleCache implements CacheInterface
+final class SessionSimpleCache implements CacheInterface
 {
     public function __construct(private readonly SessionInterface $session)
     {

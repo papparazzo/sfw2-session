@@ -63,6 +63,59 @@
             "time": "2020-11-24T22:02:12+00:00"
         },
         {
+            "name": "psr/container",
+            "version": "2.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/container.git",
+                "reference": "c71ecc56dfe541dbd90c5360474fbc405f8d5963"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/container/zipball/c71ecc56dfe541dbd90c5360474fbc405f8d5963",
+                "reference": "c71ecc56dfe541dbd90c5360474fbc405f8d5963",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Container\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https://www.php-fig.org/"
+                }
+            ],
+            "description": "Common Container Interface (PHP FIG PSR-11)",
+            "homepage": "https://github.com/php-fig/container",
+            "keywords": [
+                "PSR-11",
+                "container",
+                "container-interface",
+                "container-interop",
+                "psr"
+            ],
+            "support": {
+                "issues": "https://github.com/php-fig/container/issues",
+                "source": "https://github.com/php-fig/container/tree/2.0.2"
+            },
+            "time": "2021-11-05T16:47:00+00:00"
+        },
+        {
             "name": "psr/http-message",
             "version": "2.0",
             "source": {
@@ -281,23 +334,25 @@
         },
         {
             "name": "sfw2/core",
-            "version": "3.0.0",
+            "version": "3.2.0",
             "source": {
                 "type": "git",
-                "url": "git@github.com:papparazzo/sfw2-core.git",
-                "reference": "25f4226291116a1fc4630c06e15b25bd9fac53dd"
+                "url": "https://github.com/papparazzo/sfw2-core.git",
+                "reference": "10dab25fe7fb9f1b1cfbf0db46a12174c51c16c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/papparazzo/sfw2-core/zipball/25f4226291116a1fc4630c06e15b25bd9fac53dd",
-                "reference": "25f4226291116a1fc4630c06e15b25bd9fac53dd",
+                "url": "https://api.github.com/repos/papparazzo/sfw2-core/zipball/10dab25fe7fb9f1b1cfbf0db46a12174c51c16c2",
+                "reference": "10dab25fe7fb9f1b1cfbf0db46a12174c51c16c2",
                 "shasum": ""
             },
             "require": {
                 "ext-gd": "*",
+                "ext-intl": "*",
                 "ext-mbstring": "*",
                 "fig/http-message-util": "^1.1.5",
-                "php": "^8.1"
+                "php": "^8.1",
+                "psr/container": "^2.0.2"
             },
             "type": "library",
             "autoload": {
@@ -308,7 +363,11 @@
             "license": [
                 "GNU AFFERO GENERAL PUBLIC LICENSE Version 3"
             ],
-            "time": "2023-10-01T16:10:33+00:00"
+            "support": {
+                "source": "https://github.com/papparazzo/sfw2-core/tree/3.2.0",
+                "issues": "https://github.com/papparazzo/sfw2-core/issues"
+            },
+            "time": "2023-11-25T10:41:56+00:00"
         }
     ],
     "packages-dev": [],

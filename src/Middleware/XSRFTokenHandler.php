@@ -29,7 +29,8 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use SFW2\Core\HttpExceptions\HttpForbidden;
+use Psr\SimpleCache\InvalidArgumentException;
+use SFW2\Core\HttpExceptions\HttpUnprocessableContent;
 use SFW2\Session\XSRFToken;
 
 final class XSRFTokenHandler implements MiddlewareInterface
@@ -42,20 +43,31 @@ final class XSRFTokenHandler implements MiddlewareInterface
      * @param ServerRequestInterface $request
      * @param RequestHandlerInterface $handler
      * @return ResponseInterface
-     * @throws Exception
+     * @throws Exception|InvalidArgumentException
      */
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface {
-
-        if(strtoupper($request->getMethod()) != 'POST') {
-            return $handler->handle($request)->withHeader('X-CSRF-Token', $this->xsrfToken->generateToken());
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
+    {
+        if (strtoupper($request->getMethod()) != 'POST') {
+            return $this->handleAndRespose($request, $handler);
         }
 
-        $token = (string)$request->getAttribute(XSRFToken::XSS_TOKEN);
+        $headers = $request->getHeader('X-CSRF-Token');
+        $token = (string)array_pop($headers);
 
-        if(!$this->xsrfToken->compareToken($token)) {
-            throw new HttpForbidden("invalid xsrf-token given");
+        if (!$this->xsrfToken->compareToken($token)) {
+            throw new HttpUnprocessableContent("invalid xsrf-token given");
         }
+        return $this->handleAndRespose($request, $handler);
+    }
 
-        return $handler->handle($request)->withHeader('X-CSRF-Token', $this->xsrfToken->generateToken());
+    /**
+     * @throws InvalidArgumentException
+     */
+    private function handleAndRespose(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
+    {
+        $newToken = $this->xsrfToken->generateToken();
+        $request->withAttribute('sfw2_session', ['xsrf_token' => $newToken]);
+
+        return $handler->handle($request)->withHeader('X-CSRF-Token', $newToken);
     }
 }
