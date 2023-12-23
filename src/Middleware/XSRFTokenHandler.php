@@ -32,12 +32,10 @@ use Psr\Http\Server\RequestHandlerInterface;
 use SFW2\Core\HttpExceptions\HttpForbidden;
 use SFW2\Session\XSRFToken;
 
-class XSRFTokenHandler implements MiddlewareInterface {
-
-    private XSRFToken $xsrfToken;
-
-    public function __construct(XSRFToken $xsrfToken) {
-        $this->xsrfToken = $xsrfToken;
+final class XSRFTokenHandler implements MiddlewareInterface
+{
+    public function __construct(private readonly XSRFToken $xsrfToken)
+    {
     }
 
     /**

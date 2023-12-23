@@ -27,14 +27,14 @@ use Exception;
 /**
  * @noinspection PhpUnused
  */
-class XSRFToken {
+class XSRFToken
+{
+    public const XSRF_TOKEN = 'sfw2_xsrf_token';
 
-    public const XSS_TOKEN = 'xss_token';
-
-    protected SessionInterface $session;
-
-    public function __construct(SessionInterface $session) {
-        $this->session = $session;
+    public function __construct(
+        protected CacheInterface $cache
+    )
+    {
     }
 
     /**

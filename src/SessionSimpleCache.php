@@ -29,11 +29,8 @@ use Psr\SimpleCache\CacheInterface;
 
 class SessionSimpleCache implements CacheInterface
 {
-    private SessionInterface $session;
-
-    public function __construct(SessionInterface $session)
+    public function __construct(private readonly SessionInterface $session)
     {
-        $this->session = $session;
     }
 
     /**
