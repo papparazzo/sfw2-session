@@ -66,7 +66,7 @@ final class XSRFTokenHandler implements MiddlewareInterface
     private function handleAndRespose(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $newToken = $this->xsrfToken->generateToken();
-        $request->withAttribute('sfw2_session', ['xsrf_token' => $newToken]);
+        $request = $request->withAttribute('sfw2_session', ['xsrf_token' => $newToken]);
 
         return $handler->handle($request)->withHeader('X-CSRF-Token', $newToken);
     }
