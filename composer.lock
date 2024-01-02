@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "aa9d2ba110955bae196578db5c0ca650",
+    "content-hash": "fb430ba497dae57bd075daa0c19469b6",
     "packages": [
         {
             "name": "fig/http-message-util",
@@ -391,16 +391,16 @@
         },
         {
             "name": "sfw2/core",
-            "version": "4.1.0",
+            "version": "5.2.0",
             "source": {
                 "type": "git",
                 "url": "git@github.com:papparazzo/sfw2-core.git",
-                "reference": "79badcecc17cf12d0803477b834796ab6af46ba2"
+                "reference": "8426ede0138f55145a76e96aee0dc55fb2ac85ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/papparazzo/sfw2-core/zipball/79badcecc17cf12d0803477b834796ab6af46ba2",
-                "reference": "79badcecc17cf12d0803477b834796ab6af46ba2",
+                "url": "https://api.github.com/repos/papparazzo/sfw2-core/zipball/8426ede0138f55145a76e96aee0dc55fb2ac85ac",
+                "reference": "8426ede0138f55145a76e96aee0dc55fb2ac85ac",
                 "shasum": ""
             },
             "require": {
@@ -408,7 +408,7 @@
                 "ext-intl": "*",
                 "ext-mbstring": "*",
                 "fig/http-message-util": "^1.1.5",
-                "php": "^8.1",
+                "php": "^8.2",
                 "psr/container": "^2.0.2",
                 "salesforce/handlebars-php": "^3.0.1"
             },
@@ -421,7 +421,7 @@
             "license": [
                 "GNU AFFERO GENERAL PUBLIC LICENSE Version 3"
             ],
-            "time": "2023-12-30T09:13:41+00:00"
+            "time": "2024-01-02T15:06:37+00:00"
         }
     ],
     "packages-dev": [],
@@ -431,7 +431,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.1"
+        "php": "^8.2"
     },
     "platform-dev": [],
     "plugin-api-version": "2.3.0"
