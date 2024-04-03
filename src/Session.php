@@ -27,10 +27,8 @@ namespace SFW2\Session;
 /**
  * @noinspection PhpUnused
  */
-
 class Session extends SessionAbstract
 {
-
     public function __destruct()
     {
         session_write_close();

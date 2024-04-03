@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fb430ba497dae57bd075daa0c19469b6",
+    "content-hash": "4ecce913095a64ed25ef5979c32706b0",
     "packages": [
         {
             "name": "fig/http-message-util",
@@ -391,16 +391,16 @@
         },
         {
             "name": "sfw2/core",
-            "version": "5.2.0",
+            "version": "6.0.0",
             "source": {
                 "type": "git",
                 "url": "git@github.com:papparazzo/sfw2-core.git",
-                "reference": "8426ede0138f55145a76e96aee0dc55fb2ac85ac"
+                "reference": "ea2601df3819a76ec33052f897963600f876bfa9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/papparazzo/sfw2-core/zipball/8426ede0138f55145a76e96aee0dc55fb2ac85ac",
-                "reference": "8426ede0138f55145a76e96aee0dc55fb2ac85ac",
+                "url": "https://api.github.com/repos/papparazzo/sfw2-core/zipball/ea2601df3819a76ec33052f897963600f876bfa9",
+                "reference": "ea2601df3819a76ec33052f897963600f876bfa9",
                 "shasum": ""
             },
             "require": {
@@ -421,7 +421,7 @@
             "license": [
                 "GNU AFFERO GENERAL PUBLIC LICENSE Version 3"
             ],
-            "time": "2024-01-02T15:06:37+00:00"
+            "time": "2024-04-01T06:21:40+00:00"
         }
     ],
     "packages-dev": [],
