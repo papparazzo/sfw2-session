@@ -31,7 +31,7 @@ use Psr\SimpleCache\InvalidArgumentException;
  */
 class XSRFToken
 {
-    public const XSRF_TOKEN = 'sfw2_xsrf_token';
+    public const string XSRF_TOKEN = 'sfw2_xsrf_token';
 
     public function __construct(
         protected CacheInterface $cache
