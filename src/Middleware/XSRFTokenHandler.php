@@ -30,7 +30,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Psr\SimpleCache\InvalidArgumentException;
-use SFW2\Core\HttpExceptions\HttpUnprocessableContent;
+use SFW2\Exception\HttpExceptions\HttpUnprocessableContent;
 use SFW2\Session\XSRFToken;
 
 final class XSRFTokenHandler implements MiddlewareInterface
