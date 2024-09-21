@@ -23,6 +23,9 @@
         "psr/http-server-middleware": "~1.0.2",
         "psr/simple-cache": "^3.0.0"
     },
+    "require-dev": {
+        "phpunit/phpunit": "11.3.6"
+    },
     "autoload": {
         "psr-4": {
             "SFW2\\Session\\": "src/"

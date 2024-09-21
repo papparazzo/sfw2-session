@@ -2,3 +2,4 @@
 .idea
 # netbeans project files
 /nbproject/
+/.phpunit.cache/test-results
