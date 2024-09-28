@@ -34,7 +34,7 @@ class Session extends SessionAbstract
         session_write_close();
     }
 
-    public function regenerateSession(): SessionInterface
+    public function regenerateSession(): static
     {
         session_regenerate_id();
         return $this;
@@ -69,7 +69,7 @@ class Session extends SessionAbstract
         return unserialize($_SESSION[$section][$index]);
     }
 
-    protected function setEntry(string $section, string $index, $val): SessionInterface
+    protected function setEntry(string $section, string $index, $val): static
     {
         $_SESSION[$section][$index] = serialize($val);
         return $this;
