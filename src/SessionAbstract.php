@@ -91,7 +91,7 @@ abstract class SessionAbstract implements SessionInterface
         return $this->delAllEntries(self::GLOBAL_SECTION);
     }
 
-    abstract protected function startSession(): void;
+    abstract protected function startSession(): static;
 
     abstract protected function hasEntry(string $section, string $index): bool;
 

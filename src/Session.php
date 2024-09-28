@@ -47,10 +47,11 @@ class Session extends SessionAbstract
         $_SESSION = [];
     }
 
-    protected function startSession(): void
+    protected function startSession(): static
     {
         session_set_cookie_params(1800, '/', null, true, true);
         session_start();
+        return $this;
     }
 
     protected function hasEntry(string $section, string $index): bool
