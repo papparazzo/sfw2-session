@@ -26,9 +26,11 @@ abstract class SessionAbstract implements SessionInterface
 {
     protected string $path = self::GLOBAL_SECTION;
 
-    public function __construct()
+    protected const int SESSION_LIFE_TIME = 1800;
+
+    public function __construct(int $lifetime = self::SESSION_LIFE_TIME)
     {
-        $this->startSession();
+        $this->startSession($lifetime);
     }
 
     public function setPath(string $path): static

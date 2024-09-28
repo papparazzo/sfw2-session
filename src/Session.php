@@ -47,9 +47,9 @@ class Session extends SessionAbstract
         $_SESSION = [];
     }
 
-    protected function startSession(): static
+    protected function startSession(int $lifetime = self::SESSION_LIFE_TIME): static
     {
-        session_set_cookie_params(1800, '/', null, true, true);
+        session_set_cookie_params($lifetime, '/', null, true, true);
         session_start();
         return $this;
     }
