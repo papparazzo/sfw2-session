@@ -46,12 +46,12 @@ abstract class SessionAbstract implements SessionInterface
         return $this->hasEntry($this->path, $index);
     }
 
-    public function getPathEntry(string $index, $default = null): mixed
+    public function getPathEntry(string $index, mixed $default = null): mixed
     {
         return $this->getEntry($this->path, $index, $default);
     }
 
-    public function setPathEntry(string $index, $val): static
+    public function setPathEntry(string $index, mixed $val): static
     {
         $this->setEntry($this->path, $index, $val);
         return $this;
@@ -72,12 +72,12 @@ abstract class SessionAbstract implements SessionInterface
         return $this->hasEntry(self::GLOBAL_SECTION, $index);
     }
 
-    public function getGlobalEntry(string $index, $default = null): mixed
+    public function getGlobalEntry(string $index, mixed $default = null): mixed
     {
         return $this->getEntry(self::GLOBAL_SECTION, $index, $default);
     }
 
-    public function setGlobalEntry(string $index, $val): static
+    public function setGlobalEntry(string $index, mixed $val): static
     {
         $this->setEntry(self::GLOBAL_SECTION, $index, $val);
         return $this;
@@ -93,13 +93,13 @@ abstract class SessionAbstract implements SessionInterface
         return $this->delAllEntries(self::GLOBAL_SECTION);
     }
 
-    abstract protected function startSession(): static;
+    abstract protected function startSession(int $lifetime = self::SESSION_LIFE_TIME): static;
 
     abstract protected function hasEntry(string $section, string $index): bool;
 
-    abstract protected function getEntry(string $section, string $index, $default = null): mixed;
+    abstract protected function getEntry(string $section, string $index, mixed $default = null): mixed;
 
-    abstract protected function setEntry(string $section, string $index, $val): static;
+    abstract protected function setEntry(string $section, string $index, mixed $val): static;
 
     abstract protected function delEntry(string $section, string $index): bool;
 

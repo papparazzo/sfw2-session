@@ -34,9 +34,9 @@ interface SessionInterface
 
     public function hasPathEntry(string $index): bool;
 
-    public function getPathEntry(string $index, $default = null): mixed;
+    public function getPathEntry(string $index, mixed $default = null): mixed;
 
-    public function setPathEntry(string $index, $val): SessionInterface;
+    public function setPathEntry(string $index, mixed $val): SessionInterface;
 
     public function delPathEntry(string $index): bool;
 
@@ -44,9 +44,9 @@ interface SessionInterface
 
     public function hasGlobalEntry(string $index): bool;
 
-    public function getGlobalEntry(string $index, $default = null): mixed;
+    public function getGlobalEntry(string $index, mixed $default = null): mixed;
 
-    public function setGlobalEntry(string $index, $val): SessionInterface;
+    public function setGlobalEntry(string $index, mixed $val): SessionInterface;
 
     public function delGlobalEntry(string $index): bool;
 

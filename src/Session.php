@@ -42,7 +42,7 @@ class Session extends SessionAbstract
 
     public function destroySession(): void
     {
-        setcookie(session_name(), '', time() - 42000, '/');
+        setcookie((string)session_name(), '', time() - 42000, '/');
         session_destroy();
         $_SESSION = [];
     }
@@ -62,7 +62,7 @@ class Session extends SessionAbstract
         return false;
     }
 
-    protected function getEntry(string $section, string $index, $default = null): mixed
+    protected function getEntry(string $section, string $index, mixed $default = null): mixed
     {
         if (!$this->hasEntry($section, $index)) {
             return $default;
@@ -70,7 +70,7 @@ class Session extends SessionAbstract
         return unserialize($_SESSION[$section][$index]);
     }
 
-    protected function setEntry(string $section, string $index, $val): static
+    protected function setEntry(string $section, string $index, mixed $val): static
     {
         $_SESSION[$section][$index] = serialize($val);
         return $this;
