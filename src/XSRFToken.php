@@ -68,6 +68,7 @@ class XSRFToken
      */
     public function getToken(): string
     {
+        /** @var string $token */
         $token = $this->cache->get(self::XSRF_TOKEN);
         $this->cache->delete(self::XSRF_TOKEN);
         return $token;

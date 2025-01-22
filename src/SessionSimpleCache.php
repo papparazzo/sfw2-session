@@ -26,6 +26,7 @@ namespace SFW2\Session;
 
 use DateInterval;
 use Psr\SimpleCache\CacheInterface;
+use Psr\SimpleCache\InvalidArgumentException;
 
 final class SessionSimpleCache implements CacheInterface
 {
@@ -73,13 +74,16 @@ final class SessionSimpleCache implements CacheInterface
     {
         $tmp = [];
         foreach ($keys as $key) {
-            $tmp[] = $this->get($key, $default);
+            $tmp[$key] = $this->get($key, $default);
         }
         return $tmp;
     }
 
     /**
-     * @inheritDoc
+     * @param  iterable<string, mixed> $values
+     * @param  DateInterval|int|null   $ttl
+     * @return bool
+     * @throws InvalidArgumentException
      */
     public function setMultiple(iterable $values, DateInterval|int|null $ttl = null): bool
     {
