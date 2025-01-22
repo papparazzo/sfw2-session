@@ -35,8 +35,7 @@ class XSRFToken
 
     public function __construct(
         protected CacheInterface $cache
-    )
-    {
+    ) {
     }
 
     /**

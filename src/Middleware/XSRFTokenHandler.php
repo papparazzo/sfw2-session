@@ -35,13 +35,14 @@ use SFW2\Session\XSRFToken;
 
 final class XSRFTokenHandler implements MiddlewareInterface
 {
-    public function __construct(private readonly XSRFToken $xsrfToken)
-    {
+    public function __construct(
+        private readonly XSRFToken $xsrfToken
+    ) {
     }
 
     /**
-     * @param ServerRequestInterface $request
-     * @param RequestHandlerInterface $handler
+     * @param  ServerRequestInterface  $request
+     * @param  RequestHandlerInterface $handler
      * @return ResponseInterface
      * @throws Exception|InvalidArgumentException
      */
