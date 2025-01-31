@@ -30,7 +30,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Psr\SimpleCache\InvalidArgumentException;
-use SFW2\Exception\HttpExceptions\HttpUnprocessableContent;
+use SFW2\Exception\HttpExceptions\Status4xx\HttpStatus422UnprocessableContent;
 use SFW2\Session\XSRFToken;
 
 final class XSRFTokenHandler implements MiddlewareInterface
@@ -56,7 +56,7 @@ final class XSRFTokenHandler implements MiddlewareInterface
         $token = (string)array_pop($headers);
 
         if (!$this->xsrfToken->compareToken($token)) {
-            throw new HttpUnprocessableContent("invalid xsrf-token given");
+            throw new HttpStatus422UnprocessableContent("invalid xsrf-token given");
         }
         return $this->handleAndRespose($request, $handler);
     }
