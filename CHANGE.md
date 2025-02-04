@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+### [5.0.0] - 2025-04-02
+#### Changed
+- sfw2/exception: 2.0
+
 ### [4.6.0] - 2025-22-01
 #### Added
 - code-sniffer and phpstan added
