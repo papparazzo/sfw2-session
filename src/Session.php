@@ -55,6 +55,7 @@ class Session extends SessionAbstract
 
     protected function hasEntry(string $section, string $index): bool
     {
+        /** @phpstan-ignore offsetAccess.nonOffsetAccessible */
         if (isset($_SESSION[$section][$index])) {
             return true;
         }
@@ -66,11 +67,13 @@ class Session extends SessionAbstract
         if (!$this->hasEntry($section, $index)) {
             return $default;
         }
+        /** @phpstan-ignore offsetAccess.nonOffsetAccessible, argument.type */
         return unserialize($_SESSION[$section][$index]);
     }
 
     protected function setEntry(string $section, string $index, mixed $val): static
     {
+        /** @phpstan-ignore offsetAccess.nonOffsetAccessible */
         $_SESSION[$section][$index] = serialize($val);
         return $this;
     }
@@ -80,6 +83,7 @@ class Session extends SessionAbstract
         if (!$this->hasEntry($section, $index)) {
             return false;
         }
+        /** @phpstan-ignore offsetAccess.nonOffsetAccessible */
         unset($_SESSION[$section][$index]);
         return true;
     }
