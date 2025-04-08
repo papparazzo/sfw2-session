@@ -34,7 +34,7 @@ class XSRFToken
     public const string XSRF_TOKEN = 'sfw2_xsrf_token';
 
     public function __construct(
-        protected CacheInterface $cache
+        protected CacheInterface $session
     ) {
     }
 
@@ -45,7 +45,7 @@ class XSRFToken
     public function generateToken(): string
     {
         $token = md5(random_int(PHP_INT_MIN, PHP_INT_MAX) . uniqid("", true));
-        $this->cache->set(self::XSRF_TOKEN, $token);
+        $this->session->set(self::XSRF_TOKEN, $token);
         return $token;
     }
 
@@ -54,12 +54,12 @@ class XSRFToken
      */
     public function compareToken(string $rtoken): bool
     {
-        $token = $this->cache->get(self::XSRF_TOKEN);
+        $token = $this->session->get(self::XSRF_TOKEN);
         if ($token == null) {
             return false;
         }
        
-        $this->cache->delete(self::XSRF_TOKEN);
+        $this->session->delete(self::XSRF_TOKEN);
         return ($rtoken == $token);
     }
 
@@ -69,8 +69,8 @@ class XSRFToken
     public function getToken(): string
     {
         /** @var string $token */
-        $token = $this->cache->get(self::XSRF_TOKEN);
-        $this->cache->delete(self::XSRF_TOKEN);
+        $token = $this->session->get(self::XSRF_TOKEN);
+        $this->session->delete(self::XSRF_TOKEN);
         return $token;
     }
 }
