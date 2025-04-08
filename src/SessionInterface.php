@@ -24,32 +24,19 @@ namespace SFW2\Session;
 
 interface SessionInterface
 {
-    public const string GLOBAL_SECTION = 'global';
+    public function regenerateSession(): static;
 
-    public function regenerateSession(): SessionInterface;
-
-    public function setPath(string $path): SessionInterface;
+    public function commitSession(): void;
 
     public function destroySession(): void;
 
-    public function hasPathEntry(string $index): bool;
+    public function hasEntry(string $section, string $index): bool;
 
-    public function getPathEntry(string $index, mixed $default = null): mixed;
+    public function getEntry(string $section, string $index, mixed $default = null): mixed;
 
-    public function setPathEntry(string $index, mixed $val): SessionInterface;
+    public function setEntry(string $section, string $index, mixed $val): static;
 
-    public function delPathEntry(string $index): bool;
+    public function deleteEntry(string $section, string $index): bool;
 
-    public function delAllPathEntries(): bool;
-
-    public function hasGlobalEntry(string $index): bool;
-
-    public function getGlobalEntry(string $index, mixed $default = null): mixed;
-
-    public function setGlobalEntry(string $index, mixed $val): SessionInterface;
-
-    public function delGlobalEntry(string $index): bool;
-
-    public function delAllGlobalEntries(): bool;
-
+    public function deleteSection(string $section): bool;
 }
