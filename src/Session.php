@@ -23,14 +23,21 @@ declare(strict_types=1);
 
 namespace SFW2\Session;
 
-/**
- * @noinspection PhpUnused
- */
-class Session extends SessionAbstract
+class Session implements SessionInterface
 {
-    public function __destruct()
+    public function __construct(int $lifetime, string $name = 'SESSID')
     {
-        session_write_close();
+        session_set_cookie_params($lifetime, '/', null, true, true);
+        session_start([
+            'gc_maxlifetime' => $lifetime,
+            'use_strict_mode' => true,
+            'name' => $name
+        ]);
+
+        // Reset the expiration time upon page load
+        if (isset($_COOKIE[$name])) {
+            setcookie($name, $_COOKIE[$name], time() + $lifetime, "/");
+        }
     }
 
     public function regenerateSession(): static
@@ -39,21 +46,25 @@ class Session extends SessionAbstract
         return $this;
     }
 
+    public function commitSession(): void
+    {
+        session_write_close();
+    }
+
     public function destroySession(): void
     {
-        setcookie((string)session_name(), '', time() - 42000, '/');
+        setcookie(
+            name: (string)session_name(),
+            expires_or_options: time() - 42000,
+            path: '/',
+            secure: true,
+            httponly: true
+        );
         session_destroy();
         $_SESSION = [];
     }
 
-    protected function startSession(int $lifetime = self::SESSION_LIFE_TIME): static
-    {
-        session_set_cookie_params($lifetime, '/', null, true, true);
-        session_start();
-        return $this;
-    }
-
-    protected function hasEntry(string $section, string $index): bool
+    public function hasEntry(string $section, string $index): bool
     {
         /** @phpstan-ignore offsetAccess.nonOffsetAccessible */
         if (isset($_SESSION[$section][$index])) {
@@ -62,7 +73,7 @@ class Session extends SessionAbstract
         return false;
     }
 
-    protected function getEntry(string $section, string $index, mixed $default = null): mixed
+    public function getEntry(string $section, string $index, mixed $default = null): mixed
     {
         if (!$this->hasEntry($section, $index)) {
             return $default;
@@ -71,14 +82,14 @@ class Session extends SessionAbstract
         return unserialize($_SESSION[$section][$index]);
     }
 
-    protected function setEntry(string $section, string $index, mixed $val): static
+    public function setEntry(string $section, string $index, mixed $val): static
     {
         /** @phpstan-ignore offsetAccess.nonOffsetAccessible */
         $_SESSION[$section][$index] = serialize($val);
         return $this;
     }
 
-    protected function delEntry(string $section, string $index): bool
+    public function deleteEntry(string $section, string $index): bool
     {
         if (!$this->hasEntry($section, $index)) {
             return false;
@@ -88,7 +99,7 @@ class Session extends SessionAbstract
         return true;
     }
 
-    protected function delAllEntries(string $section): bool
+    public function deleteSection(string $section): bool
     {
         if (!isset($_SESSION[$section])) {
             return false;
