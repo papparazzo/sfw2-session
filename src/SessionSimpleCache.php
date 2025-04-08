@@ -30,8 +30,10 @@ use Psr\SimpleCache\InvalidArgumentException;
 
 final class SessionSimpleCache implements CacheInterface
 {
-    public function __construct(private readonly SessionInterface $session)
-    {
+    public function __construct(
+        private readonly SessionInterface $session,
+        private readonly string $section,
+    ) {
     }
 
     /**
@@ -39,7 +41,7 @@ final class SessionSimpleCache implements CacheInterface
      */
     public function get(string $key, mixed $default = null): mixed
     {
-        return $this->session->getGlobalEntry($key, $default);
+        return $this->session->getEntry($this->section, $key, $default);
     }
 
     /**
@@ -47,7 +49,7 @@ final class SessionSimpleCache implements CacheInterface
      */
     public function set(string $key, mixed $value, DateInterval|int|null $ttl = null): bool
     {
-        $this->session->setGlobalEntry($key, $value);
+        $this->session->setEntry($this->section, $key, $value);
         return true;
     }
 
@@ -56,7 +58,7 @@ final class SessionSimpleCache implements CacheInterface
      */
     public function delete(string $key): bool
     {
-        return $this->session->delGlobalEntry($key);
+        return $this->session->deleteEntry($this->section, $key);
     }
 
     /**
@@ -64,7 +66,7 @@ final class SessionSimpleCache implements CacheInterface
      */
     public function clear(): bool
     {
-        return $this->session->delAllGlobalEntries();
+        return $this->session->deleteSection($this->section);
     }
 
     /**
@@ -109,6 +111,6 @@ final class SessionSimpleCache implements CacheInterface
      */
     public function has(string $key): bool
     {
-        return $this->session->hasGlobalEntry($key);
+        return $this->session->hasEntry($this->section, $key);
     }
 }
