@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+### [6.0.0] - 2025-04-09
+#### Changed
+- Session and SessionInterface refactored
+
 ### [5.2.0] - 2025-02-18
 #### Changed
 - PHPStan and PHPUnit updated
@@ -19,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [4.6.0] - 2025-22-01
 #### Added
 - code-sniffer and phpstan added
-- 
+
 #### Changed
 - Annotations for phpstan added
 - typing added
