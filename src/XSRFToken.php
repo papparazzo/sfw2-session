@@ -29,12 +29,13 @@ use Psr\SimpleCache\InvalidArgumentException;
 /**
  * @noinspection PhpUnused
  */
-class XSRFToken
+final class XSRFToken
 {
     public const string XSRF_TOKEN = 'sfw2_xsrf_token';
 
     public function __construct(
-        protected CacheInterface $session
+        private readonly CacheInterface $session,
+        private readonly string $tokenName = self::XSRF_TOKEN
     ) {
     }
 
@@ -45,7 +46,7 @@ class XSRFToken
     public function generateToken(): string
     {
         $token = md5(random_int(PHP_INT_MIN, PHP_INT_MAX) . uniqid("", true));
-        $this->session->set(self::XSRF_TOKEN, $token);
+        $this->session->set($this->tokenName, $token);
         return $token;
     }
 
@@ -54,12 +55,12 @@ class XSRFToken
      */
     public function compareToken(string $rtoken): bool
     {
-        $token = $this->session->get(self::XSRF_TOKEN);
+        $token = $this->session->get($this->tokenName);
         if ($token == null) {
             return false;
         }
        
-        $this->session->delete(self::XSRF_TOKEN);
+        $this->session->delete($this->tokenName);
         return ($rtoken == $token);
     }
 
@@ -69,8 +70,8 @@ class XSRFToken
     public function getToken(): string
     {
         /** @var string $token */
-        $token = $this->session->get(self::XSRF_TOKEN);
-        $this->session->delete(self::XSRF_TOKEN);
+        $token = $this->session->get($this->tokenName);
+        $this->session->delete($this->tokenName);
         return $token;
     }
 }
