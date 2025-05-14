@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace phpunit;
 
+use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\TestCase;
 use Psr\SimpleCache\CacheInterface;
 use Psr\SimpleCache\InvalidArgumentException;
@@ -31,25 +32,106 @@ use SFW2\Session\XSRFToken;
 
 class XSRFTokenTest extends TestCase
 {
+    private CacheInterface $cacheMock;
+    private XSRFToken $xsrfToken;
+    private const string TOKEN_NAME = XSRFToken::XSRF_TOKEN;
 
-    public function testCompareToken()
+    /**
+     * @throws Exception
+     */
+    protected function setUp(): void
     {
-        self::markTestIncomplete();
-    }
-
-    public function testGetToken()
-    {
-        self::markTestIncomplete();
+        $this->cacheMock = $this->createMock(CacheInterface::class);
+        $this->xsrfToken = new XSRFToken($this->cacheMock);
     }
 
     /**
      * @throws InvalidArgumentException
      */
-    public function testGenerateToken()
+    public function testCompareToken(): void
     {
-        $mock = $this->getMockBuilder(CacheInterface::class)->getMock();
+        $validToken = 'valid_token_12345';
 
-        $token = new XSRFToken($mock);
-        self::assertNotEmpty($token->generateToken());
+        // Test case 1: Valid token match
+        $this->cacheMock->expects(self::once())
+            ->method('get')
+            ->with(self::TOKEN_NAME)
+            ->willReturn($validToken);
+        
+        $this->cacheMock->expects(self::once())
+            ->method('delete')
+            ->with(self::TOKEN_NAME);
+
+        self::assertTrue($this->xsrfToken->compareToken($validToken));
+        
+        // Reset mock for next test
+        $this->setUp();
+        
+        // Test case 2: Invalid token
+        $this->cacheMock->expects(self::once())
+            ->method('get')
+            ->with(self::TOKEN_NAME)
+            ->willReturn($validToken);
+            
+        $this->cacheMock->expects(self::once())
+            ->method('delete')
+            ->with(self::TOKEN_NAME);
+
+        self::assertFalse($this->xsrfToken->compareToken('invalid_token'));
+        
+        // Reset mock for next test
+        $this->setUp();
+        
+        // Test case 3: No token in cache
+        $this->cacheMock->expects(self::once())
+            ->method('get')
+            ->with(self::TOKEN_NAME)
+            ->willReturn(null);
+            
+        $this->cacheMock->expects(self::never())
+            ->method('delete');
+
+        self::assertFalse($this->xsrfToken->compareToken($validToken));
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public function testGetToken(): void
+    {
+        $storedToken = 'stored_token_67890';
+        
+        $this->cacheMock->expects(self::once())
+            ->method('get')
+            ->with(self::TOKEN_NAME)
+            ->willReturn($storedToken);
+            
+        $this->cacheMock->expects(self::once())
+            ->method('delete')
+            ->with(self::TOKEN_NAME);
+
+        $retrievedToken = $this->xsrfToken->getToken();
+        self::assertEquals($storedToken, $retrievedToken);
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public function testGenerateToken(): void
+    {
+        $this->cacheMock->expects(self::once())
+            ->method('set')
+            ->with(
+                self::TOKEN_NAME,
+                self::callback(function($token) {
+                    return is_string($token) && !empty($token) && strlen($token) === 32; // MD5 is 32 chars
+                }),
+                null
+            );
+
+        $token = $this->xsrfToken->generateToken();
+        self::assertNotEmpty($token);
+        self::assertIsString($token);
+        self::assertEquals(32, strlen($token)); // MD5 hash length
     }
 }
