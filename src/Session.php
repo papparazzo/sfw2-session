@@ -34,7 +34,7 @@ class Session implements SessionInterface
             'name' => $name
         ]);
 
-        // Reset the expiration time upon page load
+        // Reset the expiration time upon a page load
         if (isset($_COOKIE[$name])) {
             setcookie($name, $_COOKIE[$name], time() + $lifetime, "/");
         }
