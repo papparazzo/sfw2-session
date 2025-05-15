@@ -64,7 +64,7 @@ class Session implements SessionInterface
         $_SESSION = [];
     }
 
-    public function hasEntry(string $section, string $index): bool
+    public function hasEntry(string $index, string $section = self::GLOBAL_SECTION): bool
     {
         /** @phpstan-ignore offsetAccess.nonOffsetAccessible */
         if (isset($_SESSION[$section][$index])) {
@@ -73,7 +73,7 @@ class Session implements SessionInterface
         return false;
     }
 
-    public function getEntry(string $section, string $index, mixed $default = null): mixed
+    public function getEntry(string $index, mixed $default = null, string $section = self::GLOBAL_SECTION): mixed
     {
         if (!$this->hasEntry($section, $index)) {
             return $default;
@@ -82,14 +82,14 @@ class Session implements SessionInterface
         return unserialize($_SESSION[$section][$index]);
     }
 
-    public function setEntry(string $section, string $index, mixed $val): static
+    public function setEntry(string $index, mixed $val, string $section = self::GLOBAL_SECTION): static
     {
         /** @phpstan-ignore offsetAccess.nonOffsetAccessible */
         $_SESSION[$section][$index] = serialize($val);
         return $this;
     }
 
-    public function deleteEntry(string $section, string $index): bool
+    public function deleteEntry(string $index, string $section = self::GLOBAL_SECTION): bool
     {
         if (!$this->hasEntry($section, $index)) {
             return false;
@@ -99,7 +99,7 @@ class Session implements SessionInterface
         return true;
     }
 
-    public function deleteSection(string $section): bool
+    public function deleteSection(string $section = self::GLOBAL_SECTION): bool
     {
         if (!isset($_SESSION[$section])) {
             return false;

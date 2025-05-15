@@ -41,7 +41,7 @@ final class SessionSimpleCache implements CacheInterface
      */
     public function get(string $key, mixed $default = null): mixed
     {
-        return $this->session->getEntry($this->section, $key, $default);
+        return $this->session->getEntry($key, $this->section, $default);
     }
 
     /**
@@ -49,7 +49,7 @@ final class SessionSimpleCache implements CacheInterface
      */
     public function set(string $key, mixed $value, DateInterval|int|null $ttl = null): bool
     {
-        $this->session->setEntry($this->section, $key, $value);
+        $this->session->setEntry($key, $value, $this->section);
         return true;
     }
 
@@ -58,7 +58,7 @@ final class SessionSimpleCache implements CacheInterface
      */
     public function delete(string $key): bool
     {
-        return $this->session->deleteEntry($this->section, $key);
+        return $this->session->deleteEntry($key, $this->section);
     }
 
     /**
@@ -111,6 +111,6 @@ final class SessionSimpleCache implements CacheInterface
      */
     public function has(string $key): bool
     {
-        return $this->session->hasEntry($this->section, $key);
+        return $this->session->hasEntry($key, $this->section);
     }
 }

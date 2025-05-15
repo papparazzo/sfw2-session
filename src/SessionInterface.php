@@ -24,19 +24,21 @@ namespace SFW2\Session;
 
 interface SessionInterface
 {
+    public const string GLOBAL_SECTION = 'global';
+
     public function regenerateSession(): static;
 
     public function commitSession(): void;
 
     public function destroySession(): void;
 
-    public function hasEntry(string $section, string $index): bool;
+    public function hasEntry(string $index, string $section = self::GLOBAL_SECTION): bool;
 
-    public function getEntry(string $section, string $index, mixed $default = null): mixed;
+    public function getEntry(string $index, mixed $default = null, string $section = self::GLOBAL_SECTION): mixed;
 
-    public function setEntry(string $section, string $index, mixed $val): static;
+    public function setEntry(string $index, mixed $val, string $section = self::GLOBAL_SECTION): static;
 
-    public function deleteEntry(string $section, string $index): bool;
+    public function deleteEntry(string $index, string $section = self::GLOBAL_SECTION): bool;
 
-    public function deleteSection(string $section): bool;
+    public function deleteSection(string $section = self::GLOBAL_SECTION): bool;
 }
