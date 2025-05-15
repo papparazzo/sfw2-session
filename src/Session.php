@@ -36,6 +36,7 @@ class Session implements SessionInterface
 
         // Reset the expiration time upon a page load
         if (isset($_COOKIE[$name])) {
+            /** @phpstan-ignore argument.type (We consider that $_COOKIE[$name] is a string at this point) */
             setcookie($name, $_COOKIE[$name], time() + $lifetime, "/");
         }
     }

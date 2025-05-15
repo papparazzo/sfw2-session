@@ -41,7 +41,7 @@ final class SessionSimpleCache implements CacheInterface
      */
     public function get(string $key, mixed $default = null): mixed
     {
-        return $this->session->getEntry($key, $this->section, $default);
+        return $this->session->getEntry($key, $default, $this->section);
     }
 
     /**
