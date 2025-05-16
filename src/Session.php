@@ -76,7 +76,7 @@ class Session implements SessionInterface
 
     public function getEntry(string $index, mixed $default = null, string $section = self::GLOBAL_SECTION): mixed
     {
-        if (!$this->hasEntry($section, $index)) {
+        if (!$this->hasEntry($index, $section)) {
             return $default;
         }
         /** @phpstan-ignore offsetAccess.nonOffsetAccessible, argument.type */
@@ -92,7 +92,7 @@ class Session implements SessionInterface
 
     public function deleteEntry(string $index, string $section = self::GLOBAL_SECTION): bool
     {
-        if (!$this->hasEntry($section, $index)) {
+        if (!$this->hasEntry($index, $section)) {
             return false;
         }
         /** @phpstan-ignore offsetAccess.nonOffsetAccessible */
